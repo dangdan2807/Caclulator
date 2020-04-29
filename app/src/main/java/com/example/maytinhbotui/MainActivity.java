@@ -2,19 +2,16 @@ package com.example.maytinhbotui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.BaseInputConnection;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -188,37 +185,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 addOperation(edtNumber.getText().toString());
                 addNumber(edtNumber.getText().toString());
                 // Thuật toán tính toán biểu thức
-                if(arrOperation.size()>=arrNumber.size() ||arrOperation.size()<1){
+                if(arrOperation.size() >= arrNumber.size()){
                     tvResult.setText("Lỗi định dạng");
-                }else {
+                }
+                else if(arrOperation.size() <= 0){
+                    for (int i = 0; i < arrNumber.size(); i++){
+                        result += arrNumber.get(i);
+                    }
+                    tvResult.setText(df.format(result) + "");
+                }
+                else {
                     for (int i = 0; i < (arrNumber.size() - 1); i++) {
                         switch (arrOperation.get(i)) {
                             case "+":
                                 if (i == 0) {
                                     result = arrNumber.get(i) + arrNumber.get(i + 1);
                                 } else {
-                                    result = result + arrNumber.get(i + 1);
+                                    result += arrNumber.get(i + 1);
                                 }
                                 break;
                             case "-":
                                 if (i == 0) {
                                     result = arrNumber.get(i) - arrNumber.get(i + 1);
                                 } else {
-                                    result = result - arrNumber.get(i + 1);
+                                    result -= arrNumber.get(i + 1);
                                 }
                                 break;
                             case "*":
                                 if (i == 0) {
                                     result = arrNumber.get(i) * arrNumber.get(i + 1);
                                 } else {
-                                    result = result * arrNumber.get(i + 1);
+                                    result *= arrNumber.get(i + 1);
                                 }
                                 break;
                             case "/":
                                 if (i == 0) {
                                     result = arrNumber.get(i) / arrNumber.get(i + 1);
                                 } else {
-                                    result = result / arrNumber.get(i + 1);
+                                    result /= arrNumber.get(i + 1);
                                 }
                                 break;
                             default:
@@ -268,5 +272,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             arrNumber.add(Double.valueOf(matcher.group(1)));
         }
     }
-
 }
