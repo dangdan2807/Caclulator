@@ -20,27 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText edtNumber;
     private TextView tvResult;
 
-    private Button btnNumber1;
-    private Button btnNumber2;
-    private Button btnNumber3;
-    private Button btnNumber4;
-    private Button btnNumber5;
-    private Button btnNumber6;
-    private Button btnNumber7;
-    private Button btnNumber8;
-    private Button btnNumber9;
-    private Button btnNumber0;
+    private Button btnNumber0, btnNumber1, btnNumber2, btnNumber3, btnNumber4, btnNumber5, btnNumber6, btnNumber7, btnNumber8, btnNumber9;
+    private Button btnCong, btnTru, btnNhan, btnChia, btnPoint, btnResult, btnClear;
 
-    private Button btnCong;
-    private Button btnTru;
-    private Button btnNhan;
-    private Button btnChia;
-
-    private Button btnPoint;
-    private Button btnResult;
-    private Button btnClear;
-    private Button btnClearAll;
-    private final String TAG = getClass().getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initWidget() {
-
-        edtNumber = (EditText) findViewById(R.id.edt_input);
-        tvResult = (TextView) findViewById(R.id.tv_result);
+        edtNumber = (EditText) findViewById(R.id.tvInput);
+        tvResult = (TextView) findViewById(R.id.tvResult);
 
         btnNumber1 = (Button) findViewById(R.id.btnNumber1);
         btnNumber2 = (Button) findViewById(R.id.btnNumber2);
@@ -72,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnPoint = (Button) findViewById(R.id.btnPoint);
         btnClear = (Button) findViewById(R.id.btnClear);
-        btnClearAll = (Button) findViewById(R.id.btnClearAll);
         btnResult = (Button) findViewById(R.id.btnResult);
     }
 
@@ -95,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnPoint.setOnClickListener(this);
         btnClear.setOnClickListener(this);
-        btnClearAll.setOnClickListener(this);
         btnResult.setOnClickListener(this);
     }
 
@@ -145,37 +124,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnCong:
                 //TO DO
                 edtNumber.append("+");
-                Log.e("+", "khởi tạo");
                 break;
             case R.id.btnTru:
                 //TO DO
                 edtNumber.append("-");
-                Log.e("-", "khởi tạo");
                 break;
             case R.id.btnNhan:
                 //TO DO
-                edtNumber.append("*");
-                Log.e("*", "khởi tạo");
+                edtNumber.append("×");
                 break;
             case R.id.btnChia:
                 //TO DO
-                edtNumber.append("/");
-                Log.e("/", "khởi tạo");
+                edtNumber.append("÷");
                 break;
 
             case R.id.btnPoint:
                 //TO DO
                 edtNumber.append(".");
-                Log.e(".", "khởi tạo");
                 break;
             case R.id.btnClear:
                 //TO DO
                 BaseInputConnection textFieldInputConnection = new BaseInputConnection(edtNumber, true);
                 textFieldInputConnection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
-                break;
-            case R.id.btnClearAll:
-                //TO DO
-                edtNumber.setText("");
+                tvResult.setTextColor(getResources().getColor(R.color.Dark));
+                edtNumber.setTextColor(getResources().getColor(R.color.Black));
                 tvResult.setText("");
                 break;
             case R.id.btnResult:
@@ -186,7 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 addNumber(edtNumber.getText().toString());
                 // Thuật toán tính toán biểu thức
                 if(arrOperation.size() >= arrNumber.size()){
-                    tvResult.setText("Lỗi định dạng");
+                    edtNumber.setTextColor(getResources().getColor(R.color.Red));
+                    tvResult.setText("Biểu Thức không hợp lệ");
+                    tvResult.setTextColor(getResources().getColor(R.color.Red));
                 }
                 else if(arrOperation.size() <= 0){
                     for (int i = 0; i < arrNumber.size(); i++){
@@ -211,14 +185,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     result -= arrNumber.get(i + 1);
                                 }
                                 break;
-                            case "*":
+                            case "×":
                                 if (i == 0) {
                                     result = arrNumber.get(i) * arrNumber.get(i + 1);
                                 } else {
                                     result *= arrNumber.get(i + 1);
                                 }
                                 break;
-                            case "/":
+                            case "÷":
                                 if (i == 0) {
                                     result = arrNumber.get(i) / arrNumber.get(i + 1);
                                 } else {
@@ -231,11 +205,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     tvResult.setText(df.format(result) + "");
                 }
-
-                // tvResult.setText(df.format(result) + "");
-                //  edtNumber.setText("");
-                //  result = 0;
-//        }
         }
 
     }
@@ -253,8 +222,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (cArray[i]) {
                 case '+':
                 case '-':
-                case '*':
-                case '/':
+                case '×':
+                case '÷':
                     arrOperation.add(cArray[i] + "");
                     break;
                 default:

@@ -19,15 +19,26 @@
         android:background="@color/White">
 
         <!--    Box InPut Number-->
-        <TextView
+        <EditText
             android:id="@+id/tvInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="0"
+            android:textColorHint="@color/colorPrimary"
             android:textColor="@color/Black"
-            android:textSize="40dp" />
+            android:textSize="40dp"/>
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvInput"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/Dark"
+            android:textSize="30dp"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -201,7 +212,7 @@
                 android:background="@color/White"
                 android:text="⌫"
                 android:textColor="@color/Blue"
-                  android:textSize="30dp" />
+                android:textSize="30dp" />
 
             <Button
                 android:id="@+id/btnChia"
@@ -221,7 +232,7 @@
                 android:background="@color/White"
                 android:text="×"
                 android:textColor="@color/Blue"
-                  android:textSize="30dp" />
+                android:textSize="30dp" />
 
             <Button
                 android:id="@+id/btnTru"
